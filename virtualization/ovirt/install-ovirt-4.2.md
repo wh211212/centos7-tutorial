@@ -232,6 +232,8 @@
 
 ```
 [root@ovirt ~]# yum -y groups install "GNOME Desktop"   # 此操作在oVirt Management所在服务器执行
+
+[root@ovirt ~]# startx 
 ```
 
 - 配置vnc，方便远程管理oVirt Management
@@ -246,20 +248,34 @@ Password:
 Verify:
 # run with diplay number [1], screen resolution [800x600], color depth [24]
 [wh@ovirt ~]$ vncserver :1 -geometry 1920x1080 -depth 24 # 读者可以根据显示屏调整分辨率
+# 笔者是root用户执行的，忘记切换到wh用户
+xauth:  file /root/.Xauthority does not exist
+
+New 'ovirt.aniu.so:1 (root)' desktop is ovirt.aniu.so:1
+
+Creating default startup script /root/.vnc/xstartup
+Creating default config /root/.vnc/config
+Starting applications specified in /root/.vnc/xstartup
+Log file is /root/.vnc/ovirt.aniu.so:1.log
+
 # to stop VNC process, do like follows
 [wh@ovirt ~]$ vncserver -kill :1 # 停止vncserver
 ```
+
+- 本地通过VNC viewer连接远程host
 
 ## 安装oVirt Node
 
 - 安装KVM (基于KVM（基于内核的虚拟机）+ QEMU的虚拟化)
 
 ```
+# 首先在ovirt1执行下面操作，ovirt2执行同样的操作
 [root@ovirt1 ~]# yum -y install qemu-kvm libvirt virt-install bridge-utils
 # make sure modules are loaded
 [root@ovirt1 ~]# lsmod | grep kvm 
-kvm_intel       138567  0
-kvm             441119  1 kvm_intel
+kvm_intel             174250  0 
+kvm                   570658  1 kvm_intel
+irqbypass              13503  1 kvm
 
 [root@ovirt1 ~]# systemctl start libvirtd 
 [root@ovirt1 ~]# systemctl enable libvirtd 
@@ -270,11 +286,17 @@ kvm             441119  1 kvm_intel
 ```
 [root@ovirt1 ~]# yum -y install http://resources.ovirt.org/pub/yum-repo/ovirt-release42.rpm  # 笔者安装时，官方最新rpm源，读者可自行更改，4.2优化了管理界面，笔者很喜欢
 [root@ovirt1 ~]# yum -y install vdsm
+
+# 笔者这里安装的时候遇到了软件包依赖问题，解决：--skip-broken
 ```
 
 ## 从oVirt Management管理界面添加oVirt Node
 
+> 参考：https://blog.csdn.net/wh211212/article/details/79442142
 
+> youtube:https://www.youtube.com/watch?v=lvIjJPt1smo
+
+安装时建议从ovirt 事件查看具体安装过程
 
 ## 添加存储 
 
@@ -309,5 +331,15 @@ systemctl reload nfs-server.service
 chown vdsm:kvm /exports/{data,iso,export}
 ```
 
-### 使用
+### 使用glusterfs 存储
+
+- https://docs.gluster.org/en/latest/Quick-Start-Guide/Quickstart/
+
+###
+
+| Hostname      | Role             | IP            |
+| ------------- |:----------------:| -------------:|
+| ovirt1        | glusterfs-server    | 192.168.1.131 |
+| ovirt2        | glusterfs-server    | 192.168.1.132 |
+
 
