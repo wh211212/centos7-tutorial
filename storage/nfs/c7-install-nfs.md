@@ -24,3 +24,31 @@ Domain = aniu.so
 [root@ovirt ~]# systemctl start rpcbind nfs-server 
 [root@ovirt ~]# systemctl enable rpcbind nfs-server 
 ```
+
+- 防火墙开启情况：
+```
+[root@ovirt ~]# firewall-cmd --add-service=nfs --permanent 
+success
+[root@ovirt ~]# firewall-cmd --reload 
+success
+```
+
+- 针对ovirt，配置nfs并创建挂载目录如下：
+
+
+mkdir -p /exports/{data,iso,export}
+
+# 设置nfs挂载的目录及权限,编辑/etc/exports文件，添加下面内容：
+
+/exports/data      *(rw)
+/exports/iso      *(rw)
+/exports/export    *(rw)
+
+chown vdsm:kvm /exports/{data,iso,export}
+
+
+[root@ovirt ~]# showmount -e localhost               
+Export list for localhost:
+/ovirt/export *
+/ovirt/iso    *
+/ovirt/data   *
