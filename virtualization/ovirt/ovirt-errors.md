@@ -16,6 +16,40 @@ yum clean all
 yum update
 
 
-## 升级ovirt导致ovirt登录加载的时间特别久
+## 升级ovirt导致ovirt登录加载的时间特别久, 安装ovirt engine的机器配置双网卡binding导致主机失败
 
 
+# ovirt账号过期问题
+
+Unable to log in because the user account has expired. Contact the system administrator.
+
+# 添加主机报错
+
+An error has occurred during installation of Host cloud.aniu.so: Unexpected error during execution: bash: line 1:  7021 Segmentation fault      "${MYTMP}"/ovirt-host-deploy DIALOG/dialect=str:machine DIALOG/customization=bool:True
+
+# ovirt engine 上重新reinstall host报错
+
+2018-04-10 11:45:02,822+08 ERROR [org.ovirt.engine.core.bll.hostdeploy.InstallVdsInternalCommand] (EE-ManagedThreadFactory-engine-Thread-2) [44eb8932] Exception: org.ovirt.engine.core.bll.network.NetworkConfigurator$NetworkConfiguratorException: Failed to configure management network
+        at org.ovirt.engine.core.bll.network.NetworkConfigurator.configureManagementNetwork(NetworkConfigurator.java:242) [bll.jar:]
+        at org.ovirt.engine.core.bll.network.NetworkConfigurator.createManagementNetworkIfRequired(NetworkConfigurator.java:90) [bll.jar:]
+        at org.ovirt.engine.core.bll.hostdeploy.InstallVdsInternalCommand.configureManagementNetwork(InstallVdsInternalCommand.java:304) [bll.jar:]
+        at org.ovirt.engine.core.bll.hostdeploy.InstallVdsInternalCommand.installHost(InstallVdsInternalCommand.java:217) [bll.jar:]
+        at org.ovirt.engine.core.bll.hostdeploy.InstallVdsInternalCommand.executeCommand(InstallVdsInternalCommand.java:113) [bll.jar:]
+        at org.ovirt.engine.core.bll.CommandBase.executeWithoutTransaction(CommandBase.java:1133) [bll.jar:]
+        at org.ovirt.engine.core.bll.CommandBase.executeActionInTransactionScope(CommandBase.java:1285) [bll.jar:]
+        at org.ovirt.engine.core.bll.CommandBase.runInTransaction(CommandBase.java:1934) [bll.jar:]
+        at org.ovirt.engine.core.utils.transaction.TransactionSupport.executeInSuppressed(TransactionSupport.java:164) [utils.jar:]
+        at org.ovirt.engine.core.utils.transaction.TransactionSupport.executeInScope(TransactionSupport.java:103) [utils.jar:]
+        at org.ovirt.engine.core.bll.CommandBase.execute(CommandBase.java:1345) [bll.jar:]
+        at org.ovirt.engine.core.bll.CommandBase.executeAction(CommandBase.java:400) [bll.jar:]
+        at org.ovirt.engine.core.bll.PrevalidatingMultipleActionsRunner.executeValidatedCommand(PrevalidatingMultipleActionsRunner.java:204) [bll.jar:]
+        at org.ovirt.engine.core.bll.PrevalidatingMultipleActionsRunner.runCommands(PrevalidatingMultipleActionsRunner.java:176) [bll.jar:]
+        at org.ovirt.engine.core.bll.PrevalidatingMultipleActionsRunner.lambda$invokeCommands$3(PrevalidatingMultipleActionsRunner.java:182) [bll.jar:]
+        at org.ovirt.engine.core.utils.threadpool.ThreadPoolUtil$InternalWrapperRunnable.run(ThreadPoolUtil.java:96) [utils.jar:]
+        at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) [rt.jar:1.8.0_161]
+        at java.util.concurrent.FutureTask.run(FutureTask.java:266) [rt.jar:1.8.0_161]
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [rt.jar:1.8.0_161]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [rt.jar:1.8.0_161]
+        at java.lang.Thread.run(Thread.java:748) [rt.jar:1.8.0_161]
+        at org.glassfish.enterprise.concurrent.ManagedThreadFactoryImpl$ManagedThread.run(ManagedThreadFactoryImpl.java:250) [javax.enterprise.concurrent-1.0.jar:]
+        at org.jboss.as.ee.concurrent.service.ElytronManagedThreadFactory$ElytronManagedThread.run(ElytronManagedThreadFactory.java:78)

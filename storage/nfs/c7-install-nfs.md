@@ -44,7 +44,7 @@ mkdir -p /exports/{data,iso,export}
 /exports/iso      *(rw)
 /exports/export    *(rw)
 
-chown vdsm:kvm /exports/{data,iso,export}
+chown vdsm:kvm /ovirt/{data,iso,export}
 
 
 [root@ovirt ~]# showmount -e localhost               
