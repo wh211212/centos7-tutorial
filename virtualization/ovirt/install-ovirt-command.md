@@ -25,3 +25,5 @@ systemctl start libvirtd
 systemctl enable libvirtd 
 
 yum -y install vdsm
+
+

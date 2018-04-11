@@ -51,7 +51,7 @@
           --== PRODUCT OPTIONS ==--
          
           Configure Engine on this host (Yes, No) [Yes]: 
-          Configure ovirt-provider-ovn (Yes, No) [Yes]: 
+          Configure ovirt-provider-ovn (Yes, No) [Yes]:  # 卸载重新安装时 这里选择on
           Configure Image I/O Proxy on this host (Yes, No) [Yes]: 
           Configure WebSocket Proxy on this host (Yes, No) [Yes]: 
          
