@@ -7,3 +7,7 @@ lvremove /dev/centos/home
 ```
 
 ## 创建lvm卷
+
+
+## 创建vg组，添加硬盘
+
