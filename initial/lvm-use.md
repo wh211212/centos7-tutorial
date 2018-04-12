@@ -11,3 +11,5 @@ lvremove /dev/centos/home
 
 ## 创建vg组，添加硬盘
 
+
+
