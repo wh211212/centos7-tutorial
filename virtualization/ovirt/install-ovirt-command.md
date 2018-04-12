@@ -18,6 +18,10 @@ vncpasswd
 
 vncserver :1 -geometry 1920x1080 -depth 24
 
+## ovirt node 节点添加
+
+配置hosts
+
 yum -y install qemu-kvm libvirt virt-install bridge-utils
 
 systemctl start libvirtd 
