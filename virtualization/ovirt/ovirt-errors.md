@@ -15,9 +15,7 @@ yum clean all
 
 yum update
 
-
 ## 升级ovirt导致ovirt登录加载的时间特别久, 安装ovirt engine的机器配置双网卡binding导致主机失败
-
 
 # ovirt账号过期问题
 
@@ -53,3 +51,11 @@ An error has occurred during installation of Host cloud.aniu.so: Unexpected erro
         at java.lang.Thread.run(Thread.java:748) [rt.jar:1.8.0_161]
         at org.glassfish.enterprise.concurrent.ManagedThreadFactoryImpl$ManagedThread.run(ManagedThreadFactoryImpl.java:250) [javax.enterprise.concurrent-1.0.jar:]
         at org.jboss.as.ee.concurrent.service.ElytronManagedThreadFactory$ElytronManagedThread.run(ElytronManagedThreadFactory.java:78)
+
+# 执行 添加存储连接 操作时出错: 在指定路径上的权限设置不允许对存储的访问。请检验指定存储路径上的权限设置。
+
+
+## 新加集群的时候启用gluster服务
+
+
+
