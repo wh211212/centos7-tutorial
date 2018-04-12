@@ -58,4 +58,4 @@ An error has occurred during installation of Host cloud.aniu.so: Unexpected erro
 ## 新加集群的时候启用gluster服务
 
 
-
+-  Unable to RefreshCapabilities: NoRouteToHostException: No route to host

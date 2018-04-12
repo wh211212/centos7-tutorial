@@ -71,3 +71,10 @@ MASTER=bond0
 SLAVE=yes
 
 ```
+
+## 修改完网卡直接重启机器
+
+- 查看bonding状态
+
+
+cat /proc/net/bonding/bond0
