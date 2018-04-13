@@ -36,7 +36,7 @@ success
 - 针对ovirt，配置nfs并创建挂载目录如下：
 
 
-mkdir -p /exports/{data,iso,export}
+mkdir -p /ovirt/{data,iso,export}
 
 # 设置nfs挂载的目录及权限,编辑/etc/exports文件，添加下面内容：
 

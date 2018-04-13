@@ -35,9 +35,17 @@ mkdir -p /data/brick1/gv0  # data
 mkdir -p /data/brick1/gv1  # iso
 mkdir -p /data/brick1/gv2  # export
 
+
+mkdir -p /data/brick1/{gv0,gv1,gv2}
+
 chown vdsm:kvm /data/brick1 -R # 为了ovirt挂载使用，不然添加glusterfs的时候报没有权限
 
-- 任意节点上执行：
+- 任意节点上执行：ovirt1 ovirt2
+
+gluster volume create gv0 replica 2 ovirt1:/data/brick1/gv0 ovirt2:/data/brick1/gv0
+gluster volume create gv1 replica 2 ovirt1:/data/brick1/gv1 ovirt2:/data/brick1/gv1
+gluster volume create gv2 replica 2 ovirt1:/data/brick1/gv2 ovirt2:/data/brick1/gv2
+
 
 gluster volume create gv0 replica 2 server1:/data/brick1/gv0 server2:/data/brick1/gv0
 gluster volume create gv1 replica 2 server1:/data/brick1/gv1 server2:/data/brick1/gv1
