@@ -6,6 +6,10 @@
 
 - server1 server2
 
+ yum -y install centos-release-gluster
+
+ yum -y install glusterfs-server
+
 # server1，server2 执行
 lvcreate -n glusterfs -L 50G centos
 mkfs.xfs -i size=512 /dev/mapper/centos-glusterfs 
