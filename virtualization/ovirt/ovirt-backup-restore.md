@@ -116,3 +116,9 @@ engine-setup # 重新setup
 
 
 ## 使用不同的凭证恢复备份
+
+## 日常备份
+
+- /home/wh/ovirt下：
+
+engine-backup --scope=all --mode=backup --file=engine-backup-20180413.txt --log=engine-backup-20180413.log
