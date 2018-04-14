@@ -6,6 +6,9 @@
 
 
 ovirt-aaa-jdbc-tool user add yunwei --attribute=firstName=yunwei
+
+ovirt-aaa-jdbc-tool user edit yunwei --attribute=email=yunwei@aniu.tv
+
 ovirt-aaa-jdbc-tool user password-reset yunwei --password-valid-to="2025-08-01 12:00:00-0800"
 
 
@@ -17,4 +20,12 @@ ovirt-aaa-jdbc-tool user password-reset admin --password-valid-to="2025-08-01 12
 
 
 ## 管理组
+
+ovirt-aaa-jdbc-tool group add ops
+
+ovirt-aaa-jdbc-tool group add dev
+
+ovirt-aaa-jdbc-tool group-manage useradd ops --user=yunwei
+
+ovirt-aaa-jdbc-tool group show ops
 

@@ -17,3 +17,6 @@ Setting permissions for user "rabbitmq" in vhost "/nkm_vhost" ...
 [root@aniu-saas-1 bin]# rabbitmqctl set_user_tags rabbitmq administrator
 Setting tags for user "rabbitmq" to [administrator] ...
 ...done.
+
+## 创建生产者和消费者账号
+
