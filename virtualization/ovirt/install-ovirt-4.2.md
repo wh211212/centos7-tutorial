@@ -19,6 +19,13 @@
 192.168.1.131 ovirt1
 192.168.1.132 ovirt2
 
+
+127.0.0.1   localhost localhost.localdomain 
+
+# pre-ovirt
+192.168.10.10 pre-ovirt1
+192.168.10.11 pre-ovirt2
+ 
 # 笔者主机名为：ovirt.aniu.so
 ```
 

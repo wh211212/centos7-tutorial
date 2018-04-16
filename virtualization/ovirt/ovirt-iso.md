@@ -10,3 +10,8 @@ engine-iso-uploader --nfs-server=nfs.aniu.so:/export/iso upload /usr/local/src/C
 
 
 engine-iso-uploader --nfs-server=nfs1.aniu.so:/ovirt/iso upload /usr/local/src/CentOS-7-x86_64-Minimal-1611.iso
+
+
+
+
+engine-iso-uploader --nfs-server=nfs2.aniu.so:/ovirt/iso upload

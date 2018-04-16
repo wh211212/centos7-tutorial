@@ -46,6 +46,7 @@ mkdir -p /ovirt/{data,iso,export}
 
 chown vdsm:kvm /ovirt/{data,iso,export}
 
+systemctl restart rpcbind nfs-server 
 
 [root@ovirt ~]# showmount -e localhost               
 Export list for localhost:
