@@ -26,3 +26,7 @@ DNS1=114.114.114.114
 
 - 克隆虚拟机前删除UUID，如果克隆前没删除，需要删除克隆vm上网卡配置中的UUID，重启启动网络
 
+
+## ovirt克隆centos6 网络配置
+
+配置完ip，rm -rf /etc/udev/rules.d/70-persistent-net.rules # 然后reboot重启即可
