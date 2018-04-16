@@ -76,3 +76,8 @@ Apr 16 10:14:36 pre-ovirt1 libvirtd[1329]: 2018-04-16 02:14:36.380+0000: 1429: e
 
 
 An error has occurred during installation of Host pre-ovirt1: Failed to execute stage 'Setup validation': Hardware does not support virtualization.
+
+
+#
+
+stream_ssl|ERR|Private key must be configured to use SSL
