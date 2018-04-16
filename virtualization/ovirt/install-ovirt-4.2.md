@@ -2,7 +2,7 @@
 
 | Hostname      | Role             | IP            |
 | ------------- |:----------------:| -------------:|
-| ovirt.aniu.so | oVirt Management | 192.168.1.115 |
+| ovirt.aniu.so | oVirt Management | 192.168.1.116 |
 | ovirt1        | oVirt Node 1     | 192.168.1.131 |
 | ovirt2        | oVirt Node 1     | 192.168.1.132 |
 
@@ -15,7 +15,7 @@
 127.0.0.1   localhost localhost.localdomain 
 
 # ovirt
-192.168.1.115 ovirt.aniu.so
+192.168.1.116 ovirt.aniu.so
 192.168.1.131 ovirt1
 192.168.1.132 ovirt2
 
@@ -235,41 +235,7 @@
 [ INFO  ] Stage: Termination
 [ INFO  ] Execution of setup completed successfully # 安装完成
 
-- 安装桌面环境，很主要（笔者的w'hOS7 是最小化安装的，安装时没有安装桌面），方便后面安装node时管理vm
-
 ```
-[root@ovirt ~]# yum -y groups install "GNOME Desktop"   # 此操作在oVirt Management所在服务器执行
-
-[root@ovirt ~]# startx 
-```
-
-- 配置vnc，方便远程管理oVirt Management
-
-```
-# 安装VNC服务
-[root@ovirt ~]# yum -y install tigervnc-server
-
-# set VNC password
-[wh@ovirt ~]$ vncpasswd 
-Password:
-Verify:
-# run with diplay number [1], screen resolution [800x600], color depth [24]
-[wh@ovirt ~]$ vncserver :1 -geometry 1920x1080 -depth 24 # 读者可以根据显示屏调整分辨率
-# 笔者是root用户执行的，忘记切换到wh用户
-xauth:  file /root/.Xauthority does not exist
-
-New 'ovirt.aniu.so:1 (root)' desktop is ovirt.aniu.so:1
-
-Creating default startup script /root/.vnc/xstartup
-Creating default config /root/.vnc/config
-Starting applications specified in /root/.vnc/xstartup
-Log file is /root/.vnc/ovirt.aniu.so:1.log
-
-# to stop VNC process, do like follows
-[wh@ovirt ~]$ vncserver -kill :1 # 停止vncserver
-```
-
-- 本地通过VNC viewer连接远程host
 
 ## 安装oVirt Node
 
@@ -294,7 +260,7 @@ irqbypass              13503  1 kvm
 [root@ovirt1 ~]# yum -y install http://resources.ovirt.org/pub/yum-repo/ovirt-release42.rpm  # 笔者安装时，官方最新rpm源，读者可自行更改，4.2优化了管理界面，笔者很喜欢
 [root@ovirt1 ~]# yum -y install vdsm
 
-# 笔者这里安装的时候遇到了软件包依赖问题，解决：--skip-broken
+# 笔者这里安装的时候遇到了软件包依赖问题，解决：--skip-broken,笔者建议可以使用ovirt官网提供的镜像安装节点
 ```
 
 ## 从oVirt Management管理界面添加oVirt Node
@@ -322,13 +288,13 @@ irqbypass              13503  1 kvm
 
 # 创建数据目录,镜像目录和导出目录
 
-mkdir -p /exports/{data,iso,export}
+mkdir -p /ovirt/{data,iso,export}
 
 # 设置nfs挂载的目录及权限,编辑/etc/exports文件，添加下面内容：
 
-/exports/data      *(rw)
-/exports/iso      *(rw)
-/exports/export    *(rw)
+/ovirt/data      *(rw)
+/ovirt/iso      *(rw)
+/ovirt/export    *(rw)
 
 # 重载nfs服务
 systemctl reload nfs-server.service
@@ -337,16 +303,12 @@ systemctl reload nfs-server.service
 
 chown vdsm:kvm /exports/{data,iso,export}
 ```
-
 ### 使用glusterfs 存储
 
 - https://docs.gluster.org/en/latest/Quick-Start-Guide/Quickstart/
 
-###
 
 | Hostname      | Role             | IP            |
 | ------------- |:----------------:| -------------:|
 | ovirt1        | glusterfs-server    | 192.168.1.131 |
 | ovirt2        | glusterfs-server    | 192.168.1.132 |
-
-
