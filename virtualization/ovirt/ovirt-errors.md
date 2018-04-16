@@ -59,3 +59,13 @@ An error has occurred during installation of Host cloud.aniu.so: Unexpected erro
 
 
 -  Unable to RefreshCapabilities: NoRouteToHostException: No route to host
+
+
+- 添加主机报错
+
+2018-04-15 12:38:09,018+08 ERROR [org.ovirt.engine.core.uutils.ssh.SSHDialog] (EE-ManagedThreadFactory-engine-Thread-41719) [b1231d75-cc37-4bd9-a94c-ca77b8535017] SSH error running command root@192.168.10.10:'umask 0077; MYTMP="$(TMPDIR="${OVIRT_TMPDIR}" mktemp -d -t ovirt-XXXXXXXXXX)"; trap "chmod -R u+rwX \"${MYTMP}\" > /dev/null 2>&1; rm -fr \"${MYTMP}\" > /dev/null 2>&1" 0; tar --warning=no-timestamp -C "${MYTMP}" -x &&  "${MYTMP}"/ovirt-host-deploy DIALOG/dialect=str:machine DIALOG/customization=bool:True': IOException: Command returned failure code 1 during SSH session 'root@192.168.10.10'
+2018-04-15 12:38:09,018+08 ERROR [org.ovirt.engine.core.bll.hostdeploy.VdsDeployBase] (EE-ManagedThreadFactory-engine-Thread-41719) [b1231d75-cc37-4bd9-a94c-ca77b8535017] Error during host 192.168.10.10 install
+2018-04-15 12:38:09,021+08 ERROR [org.ovirt.engine.core.bll.hostdeploy.InstallVdsInternalCommand] (EE-ManagedThreadFactory-engine-Thread-41719) [b1231d75-cc37-4bd9-a94c-ca77b8535017] Host installation failed for host '78c79c41-3923-43ff-b224-4dd21cd18a08', 'pre-ovirt1': Command returned failure code 1 during SSH session 'root@192.168.10.10'
+2018-04-15 12:38:09,024+08 INFO  [org.ovirt.engine.core.vdsbroker.SetVdsStatusVDSCommand] (EE-ManagedThreadFactory-engine-Thread-41719) [b1231d75-cc37-4bd9-a94c-ca77b8535017] START, SetVdsStatusVDSCommand(HostName = pre-ovirt1, SetVdsStatusVDSCommandParameters:{hostId='78c79c41-3923-43ff-b224-4dd21cd18a08', status='InstallFailed', nonOperationalReason='NONE', stopSpmFailureLogged='false', maintenanceReason='null'}), log id: 42650ff1
+2018-04-15 12:38:09,031+08 INFO  [org.ovirt.engine.core.vdsbroker.SetVdsStatusVDSCommand] (EE-ManagedThreadFactory-engine-Thread-41719) [b1231d75-cc37-4bd9-a94c-ca77b8535017] FINISH, SetVdsStatusVDSCommand, log id: 42650ff1
+2018-04-15 12:38:09,036+08 ERROR [org.ovirt.engine.core.dal.dbbroker.auditloghandling.AuditLogDirector] (EE-ManagedThreadFactory-engine-Thread-41719) [b1231d75-cc37-4bd9-a94c-ca77b8535017] EVENT_ID: VDS_INSTALL_FAILED(505), Host pre-ovirt1 installation failed. Command returned failure code 1 during SSH session 'root@192.168.10.10'.
