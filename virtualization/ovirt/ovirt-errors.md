@@ -69,3 +69,10 @@ An error has occurred during installation of Host cloud.aniu.so: Unexpected erro
 2018-04-15 12:38:09,024+08 INFO  [org.ovirt.engine.core.vdsbroker.SetVdsStatusVDSCommand] (EE-ManagedThreadFactory-engine-Thread-41719) [b1231d75-cc37-4bd9-a94c-ca77b8535017] START, SetVdsStatusVDSCommand(HostName = pre-ovirt1, SetVdsStatusVDSCommandParameters:{hostId='78c79c41-3923-43ff-b224-4dd21cd18a08', status='InstallFailed', nonOperationalReason='NONE', stopSpmFailureLogged='false', maintenanceReason='null'}), log id: 42650ff1
 2018-04-15 12:38:09,031+08 INFO  [org.ovirt.engine.core.vdsbroker.SetVdsStatusVDSCommand] (EE-ManagedThreadFactory-engine-Thread-41719) [b1231d75-cc37-4bd9-a94c-ca77b8535017] FINISH, SetVdsStatusVDSCommand, log id: 42650ff1
 2018-04-15 12:38:09,036+08 ERROR [org.ovirt.engine.core.dal.dbbroker.auditloghandling.AuditLogDirector] (EE-ManagedThreadFactory-engine-Thread-41719) [b1231d75-cc37-4bd9-a94c-ca77b8535017] EVENT_ID: VDS_INSTALL_FAILED(505), Host pre-ovirt1 installation failed. Command returned failure code 1 during SSH session 'root@192.168.10.10'.
+
+
+Apr 16 10:14:36 pre-ovirt1 libvirtd[1329]: 2018-04-16 02:14:36.178+0000: 1329: error : virNetSocketReadWire:1808 : End of file while reading data: Input/output error
+Apr 16 10:14:36 pre-ovirt1 libvirtd[1329]: 2018-04-16 02:14:36.380+0000: 1429: error : virNetSASLSessionServerStart:541 : authentication failed: Failed to start SASL negotiation: -20 (SASL(-13): user not found: unable to canonify user and get auxprops)
+
+
+An error has occurred during installation of Host pre-ovirt1: Failed to execute stage 'Setup validation': Hardware does not support virtualization.
