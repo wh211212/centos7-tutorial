@@ -19,3 +19,17 @@ yum -y install http://resources.ovirt.org/pub/yum-repo/ovirt-release42.rpm & yum
 
 
 - https://www.ovirt.org/documentation/vmm-guide/chap-Installing_Linux_Virtual_Machines/
+
+
+
+## C6虚拟机 安装ovirt agent
+
+
+yum install ovirt-engine-guest-agent-common
+
+service ovirt-guest-agent start
+chkconfig ovirt-guest-agent on
+
+
+service qemu-ga start
+chkconfig qemu-ga on
