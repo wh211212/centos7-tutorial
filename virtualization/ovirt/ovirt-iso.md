@@ -14,4 +14,4 @@ engine-iso-uploader --nfs-server=nfs1.aniu.so:/ovirt/iso upload /usr/local/src/C
 
 
 
-engine-iso-uploader --nfs-server=nfs2.aniu.so:/ovirt/iso upload
+  
