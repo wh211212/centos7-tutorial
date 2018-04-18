@@ -25,11 +25,14 @@ yum -y install http://resources.ovirt.org/pub/yum-repo/ovirt-release42.rpm & yum
 ## C6虚拟机 安装ovirt agent
 
 
-yum install ovirt-engine-guest-agent-common
+yum install ovirt-guest-agent -y
 
 service ovirt-guest-agent start
 chkconfig ovirt-guest-agent on
 
+[root@localhost ~]# service ovirt-guest-agent status
+ovirt-guest-agent (pid  3389) is running...
 
+# 
 service qemu-ga start
 chkconfig qemu-ga on
