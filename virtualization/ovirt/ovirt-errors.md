@@ -81,3 +81,31 @@ An error has occurred during installation of Host pre-ovirt1: Failed to execute 
 #
 
 stream_ssl|ERR|Private key must be configured to use SSL
+
+
+# 再节点上 yum update上，
+2018-04-19 10:23:22,221+0800 INFO  (jsonrpc/1) [jsonrpc.JsonRpcServer] RPC call Host.getStats succeeded in 0.02 seconds (__init__:573)
+2018-04-19 10:23:23,198+0800 ERROR (monitor/b516766) [storage.Monitor] Setting up monitor for b5167665-043f-469c-ad36-66f0c7f96e9d failed (monitor:329)
+Traceback (most recent call last):
+  File "/usr/lib/python2.7/site-packages/vdsm/storage/monitor.py", line 326, in _setupLoop
+    self._setupMonitor()
+  File "/usr/lib/python2.7/site-packages/vdsm/storage/monitor.py", line 348, in _setupMonitor
+    self._produceDomain()
+  File "/usr/lib/python2.7/site-packages/vdsm/utils.py", line 158, in wrapper
+    value = meth(self, *a, **kw)
+  File "/usr/lib/python2.7/site-packages/vdsm/storage/monitor.py", line 366, in _produceDomain
+    self.domain = sdCache.produce(self.sdUUID)
+  File "/usr/lib/python2.7/site-packages/vdsm/storage/sdc.py", line 110, in produce
+    domain.getRealDomain()
+  File "/usr/lib/python2.7/site-packages/vdsm/storage/sdc.py", line 51, in getRealDomain
+    return self._cache._realProduce(self._sdUUID)
+  File "/usr/lib/python2.7/site-packages/vdsm/storage/sdc.py", line 134, in _realProduce
+    domain = self._findDomain(sdUUID)
+  File "/usr/lib/python2.7/site-packages/vdsm/storage/sdc.py", line 151, in _findDomain
+    return findMethod(sdUUID)
+  File "/usr/lib/python2.7/site-packages/vdsm/storage/sdc.py", line 176, in _findUnfetchedDomain
+    raise se.StorageDomainDoesNotExist(sdUUID)
+StorageDomainDoesNotExist: Storage domain does not exist: (u'b5167665-043f-469c-ad36-66f0c7f96e9d',)
+
+-解决：节点更新的时候分别重启 ，或者维护模式下 分别重启节点 ，笔者怀疑是存储导致的报错
+
