@@ -103,3 +103,7 @@ GRUB_CMDLINE_LINUX="ipv6.disable=1 rd.lvm.lv=fedora-server/root.....
 
 - 创建模板介绍先写到这里，笔者的想法是继续对vm完善，安装一些必须的依赖包，在进行创建模板。
 
+
+## 创建模板后续
+
+- https://www.ovirt.org/documentation/how-to/virtual-machines/sealing-linux-vm/ ：参考设置更干净的vm模板
