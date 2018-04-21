@@ -32,7 +32,7 @@ ovirt-aaa-jdbc-tool user password-reset test --password-valid-to="2025-08-01 12:
 
 ovirt-aaa-jdbc-tool user password-reset admin --password-valid-to="2025-08-01 12:00:00Z"
 
-
+- 解锁管理员
 virt-aaa-jdbc-tool user unlock admin
 
 - 禁用内部管理用户
