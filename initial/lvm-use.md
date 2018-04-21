@@ -86,6 +86,11 @@ lvcreate -L 50G -n lv_name vg_name
 
 lvcreate -l 100%FREE -n lv_name vg_name  # 使用全部空闲区域
 
+lvcreate -l 100%FREE -n data centos
+
+mkfs.ext4 /dev/mapper/centos-data 
+
+echo "/dev/mapper/centos-data     /data                       xfs     defaults        0 0" >> /etc/fstab
 
 - 显示lv
 

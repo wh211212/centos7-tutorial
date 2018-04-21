@@ -109,3 +109,5 @@ StorageDomainDoesNotExist: Storage domain does not exist: (u'b5167665-043f-469c-
 
 -解决：节点更新的时候分别重启 ，或者维护模式下 分别重启节点 ，笔者怀疑是存储导致的报错
 
+- 
+2018-04-19 11:14:31,075+08 INFO  [org.ovirt.engine.core.utils.servlet.ServletUtils] (default task-56) [] Can't read file '/usr/share/ovirt-engine/files/spice/SpiceVersion.txt' for request '/ovirt-engine/services/files/spice/SpiceVersion.txt' -- 404
