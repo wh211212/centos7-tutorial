@@ -79,7 +79,6 @@ vgchange -a n vg_data
 
 vgremove vg_data 
 
-
 ## 管理 物理卷
 
 lvcreate -L 50G -n lv_name vg_name
