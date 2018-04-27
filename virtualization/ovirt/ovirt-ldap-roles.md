@@ -23,7 +23,7 @@ ovirt-aaa-jdbc-tool user edit wanghui --attribute=email=hwang@aniu.tv
 ovirt-aaa-jdbc-tool user password-reset wanghui --password-valid-to="2025-08-01 12:00:00-0800"
 
 
-ovirt-aaa-jdbc-tool user add test --attribute=firstName=aniu
+  --attribute=firstName=aniu
 ovirt-aaa-jdbc-tool user edit test --attribute=email=hwang@aniu.tv
 ovirt-aaa-jdbc-tool user password-reset test --password-valid-to="2025-08-01 12:00:00-0800"
 

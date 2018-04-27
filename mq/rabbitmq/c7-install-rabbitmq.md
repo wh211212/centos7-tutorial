@@ -5,4 +5,9 @@
 
 安装RabbitMQ，它是实现AMQP（高级消息队列协议）的消息代理软件
 
-## RabbitMQ Features
+- 下载安装：https://www.rabbitmq.com/download.html
+
+## 
+
+https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.7.4/rabbitmq-server-3.7.4-1.el7.noarch.rpm
+
