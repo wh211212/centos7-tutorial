@@ -10,8 +10,8 @@ baseurl=http://nginx.org/packages/centos/$releasever/$basearch/
 gpgcheck=0
 enabled=1
 ' | sudo tee /etc/yum.repos.d/nginx.repo
+## 安装nginx
 
-
-##
+yum install nginx -y
 
 - 

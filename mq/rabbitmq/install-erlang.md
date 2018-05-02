@@ -35,3 +35,5 @@ enabled=1
 
 - 使用依赖关系添加存储库
 
+sudo yum install erlang
+
