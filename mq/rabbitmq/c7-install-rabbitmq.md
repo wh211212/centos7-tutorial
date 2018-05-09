@@ -84,3 +84,5 @@ http://www.rabbitmq.com/configure.html # 参数详解
 关闭所有连接
 
 rabbitmqadmin -f tsv -q list connections name | while read conn ; do rabbitmqadmin -q close connection name="${conn}" ; done
+
+rabbitmq-top是一个插件，可帮助识别消耗大部分内存或调度程序（CPU）时间的运行时进程（“轻量级线程”）
