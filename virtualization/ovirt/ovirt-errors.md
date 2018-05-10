@@ -111,3 +111,8 @@ StorageDomainDoesNotExist: Storage domain does not exist: (u'b5167665-043f-469c-
 
 - 
 2018-04-19 11:14:31,075+08 INFO  [org.ovirt.engine.core.utils.servlet.ServletUtils] (default task-56) [] Can't read file '/usr/share/ovirt-engine/files/spice/SpiceVersion.txt' for request '/ovirt-engine/services/files/spice/SpiceVersion.txt' -- 404
+
+
+## ovirt vm虚拟机迁移失败
+
+ovirt 主机 ssh端口不统一 不是默认的22导致
