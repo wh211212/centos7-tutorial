@@ -68,3 +68,23 @@ SSD云盘：
     与其他的大型数据库例如：Oracle、DB2、SQL Server等相比，MySQL 自有它的不足之处，但是这丝毫也没有减少它受欢迎的程度。对于一般的个人使用者和中小型企业来说，MySQL 提供的功能已经绰绰有余，而且由于 MySQL 是开放源码软件，因此可以大大降低总体拥有成本。
 
     Linux 作为操作系统，Apache 和 Nginx 作为 Web 服务器，MySQL 作为数据库，PHP/Perl/Python 作为服务器端脚本解释器。由于这四个软件都是免费或开放源码软件（FLOSS)，因此使用这种方式不用花一分钱（除开人工成本）就可以建立起一个稳定、免费的网站系统，被业界称为 LAMP 或 LNMP 组合。
+
+4、在阿里云上部署LNMP
+
+LNMP简介
+    LNMP代表的就是：Linux系统下Nginx+MySQL+PHP这种网站服务器架构。
+
+Linux：是一类Unix计算机操作系统的统称，是目前最流行的免费操作系统。代表版本有：debian、centos、ubuntu、fedora、gentoo等。
+Nginx：是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP代理服务器。
+Mysql：是一个小型关系型数据库管理系统。
+PHP：是一种在服务器端执行的嵌入HTML文档的脚本语言。
+这四种软件均为免费开源软件，组合到一起，成为一个免费、高效、扩展性强的网站服务系统。   
+
+Nginx简介和使用场景
+    Nginx是俄罗斯人编写的十分轻量级的HTTP服务器,Nginx，它的发音为 “engine X”， 是一个高性能的HTTP和反向代理服务器，同时也是一个IMAP/POP3/SMTP 代理服务器．Nginx是由俄罗斯人 Igor Sysoev为俄罗斯访问量第二的 Rambler.ru站点开发的，它已经在该站点运行超过三年了。Igor Sysoev在建立的项目时,使用基于BSD许可。
+
+    为什么Nginx的性能要比Apache高得多？这得益于Nginx使用了最新的epoll（Linux 2.6内核）和kqueue（freebsd）网络I/O模型，而Apache则使用的是传统的select模型。目前Linux下能够承受高并发访问的 Squid、Memcached都采用的是epoll网络I/O模型。
+
+    处理大量的连接的读写，Apache所采用的select网络I/O模型非常低效。下面用一个比喻来解析Apache采用的select模型和Nginx采用的epoll模型进行之间的区别：假设你在大学读书，住的宿舍楼有很多间房间，你的朋友要来找你。select版宿管大妈就会带着你的朋友挨个房间去找，直到找到你为止。而epoll版 宿管大妈会先记下每位同学的房间号，你的朋友来时，只需告诉你的朋友你住在哪个房间即可，不用亲自带着你的朋友满大楼找人。如果来了10000个人，都要 找自己住这栋楼的同学时，select版和epoll版宿管大妈，谁的效率更高，不言自明。同理，在高并发服务器中，轮询I/O是最耗时间的操作之 一，select和epoll的性能谁的性能更高，同样十分明了。
+
+    在高并发连接的情况下，Nginx是Apache服务器不错的替代品。Nginx同时也可以作为7层负载均衡服务器来使用。Nginx 0.8.46 + PHP 5.2.14 (FastCGI) 可以承受3万以上的并发连接数，相当于同等环境下Apache的10倍。
