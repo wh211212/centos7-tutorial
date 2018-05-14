@@ -12,5 +12,4 @@ Switch（config-if）#switchport access vlan 10   //将端口f0/1划分到vlan 1
 
 Switch# show vlan //显示vlan信息
 
-
 ## 
