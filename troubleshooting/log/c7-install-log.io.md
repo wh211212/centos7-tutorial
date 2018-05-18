@@ -27,11 +27,11 @@ npm install -g log.io --user "root"
 
 - harvester.conf
 
-> 这是收割机的配置文件，它不过是一个日志转发器，它不断监视日志文件的变化，向服务器发送新日志。我们可以配置节点名，什么是所有日志以及发送日志。编辑收割机文件，提及节点名称。 默认情况下，Harvester设置为仅监视apache日志，我们将修改它以监视消息日志。 由于服务器主机定义为0.0.0.0，收集器会将日志广播到所有正在监听的Log.io服务器，因此建议将127.0.0.1（如果同一台计算机用作Log.io服务器）或远程服务器的IP地址 Log.io服务器。
+> 这是收割机的配置文件，它不过是一个日志转发器，它不断监视日志文件的变化，向服务器发送新日志。
 
+```
 # vi  ~/.log.io/harvester.conf
-
-[root@ecs-01 .log.io]# cat harvester.conf 
+# cat harvester.conf 
 exports.config = {
   nodeName: "log.io",
   logStreams: {
@@ -39,8 +39,11 @@ exports.config = {
       "/var/log/messages",
       "/var/log/secure"
     ],
-    logioerror: [
-      "/var/log/nginx/logio.aniu.so.error.log"
+    logioaccess: [
+      "/var/log/nginx/logio.aniu.so.access.log"
+    ],
+    logiolog: [
+      "/root/.log.io/log.io-server.log"
     ]
   },
   server: {
@@ -49,24 +52,144 @@ exports.config = {
   }
 }
 
-- 编辑log_server.conf 
+# 编辑log_server.conf 
 [root@ecs-01 .log.io]# cat log_server.conf 
 exports.config = {
   host: '192.168.0.24',
   port: 28777
 }
 
+# 编辑web_server.conf
+[root@nkmapi-1 .log.io]# cat web_server.conf 
+exports.config = {
+  host: '0.0.0.0',
+  port: 28778,
 
+  /* 
+  // Enable HTTP Basic Authentication
+  auth: {
+    user: "admin",
+    pass: "1234"
+  },
+  */
 
-# CS模式
+  /* 
+  // Enable HTTPS/SSL
+  ssl: {
+    key: '/path/to/privatekey.pem',
+    cert: '/path/to/certificate.pem'
+  },
+  */
 
-- api客户端执行：
+  /*
+  // Restrict access to websocket (socket.io)
+  // Uses socket.io 'origins' syntax
+  restrictSocket: '*:*',
+  */
+
+  /*
+  // Restrict access to http server (express)
+  restrictHTTP: [
+    "192.168.29.*", # 笔者只改了这里 其他没改
+    "192.168.0.*"
+  ]
+  */
+
+}
 
 ```
+
+- 配置启动脚本
+
+```
+# cat /etc/init.d/log.io 
+#!/bin/bash
+
+start() {
+       echo "Starting log.io process..."
+       /usr/bin/nohup /usr/bin/log.io-server >> /root/.log.io/log.io-server.log 2>&1 &
+       /usr/bin/nohup /usr/bin/log.io-harvester >> /root/.log.io/log.io-harvester.log 2>&1 &
+}
+
+stop() {
+      echo "Stopping io-log process..."
+      pkill node
+}                             
+
+status() {
+      echo "Status io-log process..."
+      netstat -tlp | grep node
+}
+
+case "$1" in
+     start)
+     start
+     ;;
+     stop)
+     stop
+     ;;
+     status)
+     status
+     ;;
+     restart)
+     echo "Restart log.io process..."
+     $0 stop
+     $0 start
+     ;;
+     *)
+     echo "Usage: start|stop|restart|status"
+     ;;
+esac
+```
+
+- 启动logio
+
+```
+# 正常安装配置完成，启动logio
+/etc/init.d/log.io start
+```
+
+- 浏览器查看
+
+```
+
+```
+
+## 收集tomcat实时日志
+
+- centos6/7 上java api客户端执行：
+
+```
+# 配置epel源
 yum install npm nodejs gcc-c++
 npm config set strict-ssl false
 npm install -g log.io --user "root"
 ```
+
+- 配置log.io配置
+
+```
+# 注意client端只需要修改harvester配置文件即可
+# cat harvester.conf  
+exports.config = {
+  nodeName: "liquidation-master",
+  logStreams: {
+    tomcat_8082: [
+      "/data/tomcats/tomcat-8082/logs/catalina.out"
+    ]
+  },
+  server: {
+    host: '192.168.0.24',
+    port: 28777
+  }
+}
+```
+
+- 收集日志的服务器，也要安装log.io,正常笔者认为启动harvester即可，但是没成功，笔者还是每个客户端都启动了两个服务
+
+
+
+
 
 
 
