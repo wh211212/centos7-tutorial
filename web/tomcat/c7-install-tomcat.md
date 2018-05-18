@@ -122,3 +122,6 @@ WantedBy=multi-user.target
   </Service>
 </Server>
 ```
+
+- 环境变量设置
+
