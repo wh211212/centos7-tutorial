@@ -7,17 +7,6 @@ yum -y install ovirt-engine
 engine-setup
 
 
-yum -y groups install "GNOME Desktop"  
-
-startx 
-
-yum -y install tigervnc-server
-
-
-vncpasswd 
-
-vncserver :1 -geometry 1920x1080 -depth 24
-
 ## ovirt node 节点添加
 
 配置hosts
