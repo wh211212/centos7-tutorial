@@ -46,4 +46,6 @@ host_key_checking = False #取消此行注释
     192.168.0.50
     192.168.0.51
 
-#     
+- ansible 同步文件 
+
+ansible allapi -m copy -a "src=/tmp/tomcatall dest=/etc/init.d/tomcatall"
