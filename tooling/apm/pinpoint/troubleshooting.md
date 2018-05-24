@@ -1,0 +1,1 @@
+# Checking network configuration
