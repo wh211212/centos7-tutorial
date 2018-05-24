@@ -27,6 +27,8 @@ export JAVA_8_HOME=/usr/lib/jvm/java-1.8.0-openjdk
 export PATH=$PATH:$JAVA_HOME/bin
 export CLASSPATH=.:$JAVA_HOME/jre/lib:$JAVA_HOME/lib:$JAVA_HOME/lib/tools.jar
 
+# alternatives --config java  配置默认jdk环境
+
 # java 6
 export JAVA_6_HOME=/usr/lib/jvm/java-1.6.0-openjdk.x86_64
 
