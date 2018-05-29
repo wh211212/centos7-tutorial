@@ -21,3 +21,12 @@ yum --enablerepo=remi-safe -y install php72-php-fpm php72-php-pear php72-php-mbs
 ```
 pecl install channel://pecl.php.net/mcrypt-1.0.1
 ```
+
+
+
+https://pecl.php.net/get/event-2.3.0.tgz
+
+
+pecl install channel://pecl.php.net/libevent-0.1.0
+
+pecl install channel://pecl.php.net/event-2.3.0

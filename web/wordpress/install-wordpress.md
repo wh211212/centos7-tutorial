@@ -27,3 +27,5 @@ Query OK, 0 rows affected (0.002 sec)
 
 MariaDB [(none)]> exit 
 Bye
+
+grant all privileges on ss_manager.* to ss_manager@'localhost' identified by 'SSmanager123.';
