@@ -49,3 +49,6 @@ host_key_checking = False #取消此行注释
 - ansible 同步文件 
 
 ansible allapi -m copy -a "src=/tmp/tomcatall dest=/etc/init.d/tomcatall"
+
+
+ansible all -m copy -a "src=/etc/chrony.conf dest=/etc/chrony.conf"

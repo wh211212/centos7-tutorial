@@ -161,7 +161,12 @@ Created symlink from /etc/systemd/system/multi-user.target.wants/awx-web.service
 
 - 从AWX服务器配置无密码登录
 
-
+systemctl restart awx-cbreceiver
+systemctl restart awx-celery-beat
+systemctl restart awx-celery-worker
+systemctl restart awx-channels-worker
+systemctl restart awx-daphne
+systemctl restart awx-web
 
 
 
