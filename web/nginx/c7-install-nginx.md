@@ -14,4 +14,10 @@ enabled=1
 
 yum install nginx -y
 
-- 
+- 启动设置自启
+
+systemctl start nginx 
+systemctl enable nginx 
+
+firewall-cmd --add-service=http --permanent 
+firewall-cmd --reload 

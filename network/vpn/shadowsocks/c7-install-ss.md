@@ -54,3 +54,24 @@ ln -s libmbedcrypto.so.1 libmbedcrypto.so.0
 ```
 
 - 参考：http://radzhang.iteye.com/blog/2414919
+
+
+
+## 使用repo安装shadsocks
+
+- https://copr.fedorainfracloud.org/coprs/librehat/shadowsocks/
+- https://github.com/shadowsocks/shadowsocks-libev
+
+- 配置
+
+yum install gcc gettext autoconf libtool automake make pcre-devel asciidoc xmlto c-ares-devel libev-devel libsodium-devel mbedtls-devel -y
+
+# Edit the configuration file
+sudo vim /etc/shadowsocks-libev/config.json
+
+# Edit the default configuration for debian
+sudo vim /etc/default/shadowsocks-libev
+
+# Start the service
+sudo /etc/init.d/shadowsocks-libev start    # for sysvinit, or
+sudo systemctl start shadowsocks-libev      # for systemd
