@@ -41,7 +41,7 @@ pvremove /dev/sdb1
 
 - 创建volume group
 
-vgcreate vg_name /dev/sdb1 
+vgcreate centos /dev/sdb1 
 
 vgcreate vg_name /dev/sdb1 /dev/sdc1
 
@@ -88,6 +88,8 @@ lvcreate -l 100%FREE -n lv_name vg_name  # 使用全部空闲区域
 lvcreate -l 100%FREE -n data centos
 
 mkfs.ext4 /dev/mapper/centos-data 
+
+mkfs.xfs /dev/mapper/centos-data 
 
 echo "/dev/mapper/centos-data     /data                       xfs     defaults        0 0" >> /etc/fstab
 
