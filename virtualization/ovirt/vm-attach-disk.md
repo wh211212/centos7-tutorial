@@ -2,7 +2,7 @@
 
 ## 格式化硬盘
 
-fidsk /dev/sdb
+fdisk /dev/sdb
 
 - 创建vg
 
@@ -13,6 +13,10 @@ vgcreate centos /dev/sdb1
 lvcreate -l 100%FREE -n data centos
 
 - 挂载并添加到fstab
+
+yum install xfsprogs -y
+
+mkfs.xfs /dev/mapper/centos-data
 
 mount /dev/mapper/centos-data /data/
 
