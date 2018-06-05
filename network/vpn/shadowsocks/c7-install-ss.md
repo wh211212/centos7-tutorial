@@ -64,7 +64,12 @@ ln -s libmbedcrypto.so.1 libmbedcrypto.so.0
 
 - 配置
 
+
+wget https://copr.fedorainfracloud.org/coprs/librehat/shadowsocks/repo/epel-7/librehat-shadowsocks-epel-7.repo
+
 yum install gcc gettext autoconf libtool automake make pcre-devel asciidoc xmlto c-ares-devel libev-devel libsodium-devel mbedtls-devel -y
+
+yum install shadowsocks-libev
 
 # Edit the configuration file
 sudo vim /etc/shadowsocks-libev/config.json
