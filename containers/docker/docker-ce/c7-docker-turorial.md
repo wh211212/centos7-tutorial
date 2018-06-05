@@ -69,7 +69,7 @@ sudo yum-config-manager --disable docker-ce-edge
 ## 在CentOS上安装最新版本的Docker CE
 
 ```
-sudo yum -y install docker-ce
+sudo yum -y install docker-ce 
 # 启动docker
 sudo systemctl start docker
 ```
