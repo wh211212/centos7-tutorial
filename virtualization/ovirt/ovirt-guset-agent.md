@@ -78,6 +78,7 @@ deb http://download.opensuse.org/repositories/home:/evilissimo:/ubuntu:/16.04/xU
 
 安装程序将自动启动ovirt-guest-agent并将其设置为在启动时自动启动。
 
+- 参考链接：https://www.ovirt.org/documentation/how-to/guest-agent/
 
 
 
