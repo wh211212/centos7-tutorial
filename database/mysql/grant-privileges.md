@@ -23,9 +23,9 @@ mysql -uroot -p -e"GRANT USAGE ON *.* TO 'zabbix'@'127.0.0.1' IDENTIFIED BY 'Ani
 mysql -uroot -p -e"GRANT USAGE ON *.* TO 'zabbix'@'localhost' IDENTIFIED BY 'Aniuzabbix123.'";
 mysql -uroot -p -e"flush privileges"
 
-GRANT select ON tysx_s.* TO wumin@'192.168.103.%' IDENTIFIED BY 'Gui2gty9XiKXK'; 
+GRANT select ON tysx_s.* TO wuchenming@'192.168.103.%' IDENTIFIED BY 'yv29NPCeSgMRCAsH'; 
 
-GRANT ALL PRIVILEGES ON aniu_product.* TO 'nkmdev'@'192.168.103.%' IDENTIFIED BY 'cgui2gty9XiKXKsN';
+GRANT select ON aniu_product.* TO 'nkmdev'@'192.168.103.%' IDENTIFIED BY 'cgui2gty9XiKXKsN';
 
 GRANT ALL PRIVILEGES ON *.* TO 'yunwei'@'%' IDENTIFIED BY 'Aniuyunwei123.';
 

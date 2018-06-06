@@ -32,3 +32,15 @@ Server:
 - 参考：https://docs.docker.com/samples/library/jenkins/
 - https://github.com/jenkinsci/docker
 
+
+
+
+docker run -d -p 8080:8080 -p 50000:50000 --env JAVA_OPTS="-Djava.util.logging.config.file=/var/jenkins_home/log.properties" -v /data/jenkins_home:/var/jenkins_home -u 0 jenkins
+
+- 日志配置
+
+cat > /data/jenkins_home/log.properties <<EOF
+handlers=java.util.logging.ConsoleHandler
+jenkins.level=FINEST
+java.util.logging.ConsoleHandler.level=FINEST
+EOF
