@@ -110,3 +110,7 @@ logout
 You have new mail in /var/spool/mail/root
 ```
 
+## 创建postgresql管理员用户 aniudba
+
+
+

@@ -59,3 +59,6 @@ time5.aliyun.com            4   3   194     +1.061    103.339   +188us   385us
 [root@ovirt ~]# systemctl start chronyd.service
 [root@ovirt ~]# systemctl status chronyd.
 ```
+
+- ops ntp server
+
