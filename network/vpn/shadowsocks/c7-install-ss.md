@@ -82,3 +82,7 @@ sudo /etc/init.d/shadowsocks-libev start    # for sysvinit, or
 sudo systemctl start shadowsocks-libev      # for systemd
 
 
+cd /usr/lib/node_modules/shadowsocks-manager/
+npm install sqlite3 --save
+
+works for me

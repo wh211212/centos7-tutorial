@@ -35,7 +35,10 @@ Server:
 
 
 
-docker run -d -p 8080:8080 -p 50000:50000 --env JAVA_OPTS="-Djava.util.logging.config.file=/var/jenkins_home/log.properties" -v /data/jenkins_home:/var/jenkins_home -u 0 jenkins
+docker run -d -p 8080:8080 -p 50000:50000 --env JAVA_OPTS="-Djava.util.logging.config.file=/var/jenkins_home/log.properties" -v /data/jenkins_home:/var/jenkins_home -v /usr/share/apache-maven:/var/maven_home -u 0 jenkins
+
+
+docker run --name aniu-jenkins -d -p 8080:8080 -p 50000:50000 -v /data/jenkins_home:/var/jenkins_home -v /usr/share/apache-maven:/var/maven_home -u 0 jenkins
 
 - 日志配置
 
