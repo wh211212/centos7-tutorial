@@ -3,8 +3,12 @@
 # Settings
 PORT=30000
 TIMEOUT=2000
-NODES=8
+NODES=6
 REPLICAS=1
+PASSWORD=Aniuredis123
+IP=`/usr/sbin/ifconfig | grep 'inet' | grep -v '127.0.0.1' | awk '{ print $2}'` 
+
+# 注意查看下IP获取到的是不是唯一，这里要求是唯一的IP地址
 
 # You may want to put the above config parameters into config.sh in order to
 # override the defaults without modifying this script.
@@ -23,7 +27,8 @@ then
         PORT=$((PORT+1))
         echo "Starting $PORT"
 #        ../../src/redis-server --port $PORT --cluster-enabled yes --cluster-config-file nodes-${PORT}.conf --cluster-node-timeout $TIMEOUT --appendonly yes --appendfilename appendonly-${PORT}.aof --dbfilename dump-${PORT}.rdb --logfile ${PORT}.log --daemonize yes
-        ../../src/redis-server --bind 0.0.0.0 --protected-mode no --port $PORT --cluster-enabled yes --cluster-config-file nodes-${PORT}.conf --cluster-node-timeout $TIMEOUT --appendonly yes --appendfilename appendonly-${PORT}.aof --dbfilename dump-${PORT}.rdb --logfile ${PORT}.log --daemonize yes
+#
+        ../../src/redis-server --bind 0.0.0.0 --requirepass $PASSWORD --masterauth $PASSWORD --protected-mode no --port $PORT --cluster-enabled yes --cluster-config-file nodes-${PORT}.conf --cluster-node-timeout $TIMEOUT --appendonly yes --appendfilename appendonly-${PORT}.aof --dbfilename dump-${PORT}.rdb --logfile ${PORT}.log --daemonize yes
     done
     exit 0
 fi
@@ -33,8 +38,8 @@ then
     HOSTS=""
     while [ $((PORT < ENDPORT)) != "0" ]; do
         PORT=$((PORT+1))
-#        HOSTS="$HOSTS 0.0.0.0:$PORT"
-        HOSTS="$HOSTS 192.168.0.68:$PORT"
+#        HOSTS="$HOSTS 127.0.0.1:$PORT"
+        HOSTS="$HOSTS 192.168.1.124:$PORT"
     done
     ../../src/redis-trib.rb create --replicas $REPLICAS $HOSTS
     exit 0
@@ -45,7 +50,7 @@ then
     while [ $((PORT < ENDPORT)) != "0" ]; do
         PORT=$((PORT+1))
         echo "Stopping $PORT"
-        ../../src/redis-cli -p $PORT shutdown nosave
+        ../../src/redis-cli -p -a $PASSWORD -h $IP $PORT shutdown nosave
     done
     exit 0
 fi
@@ -56,7 +61,7 @@ then
     while [ 1 ]; do
         clear
         date
-        ../../src/redis-cli -p $PORT cluster nodes | head -30
+        ../../src/redis-cli -p -a $PASSWORD $PORT -h $IP cluster nodes | head -30
         sleep 1
     done
     exit 0

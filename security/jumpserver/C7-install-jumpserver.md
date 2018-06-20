@@ -2,11 +2,8 @@
 
 - 官网：http://www.jumpserver.org/
 - Github：https://github.com/jumpserver/
+- 文档：http://docs.jumpserver.org/zh/docs/
 
-## 
-
-
-## 启动jumpserver
 
 
 

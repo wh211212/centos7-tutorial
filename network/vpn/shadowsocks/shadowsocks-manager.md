@@ -4,7 +4,7 @@
 
 - Node.js 8.*
 
-curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -
+ curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -
 sudo yum install -y nodejs
 
 ## To install the Yarn package manager, run:
