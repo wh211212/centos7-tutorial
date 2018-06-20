@@ -53,6 +53,13 @@ cd /data/redis && make
 mkdir /data/redis/bin
 cp /data/redis/src/{redis-benchmark,redis-check-aof,redis-check-rdb,redis-cli,redis-sentinel,redis-server,redis-shutdown,redis-trib.rb} /data/redis/bin/
 ```
+
+- 安装ruby
+yum -y install centos-release-scl-rh centos-release-scl  
+sed -i -e "s/enabled=1/enabled=0/g" /etc/yum.repos.d/CentOS-SCLo-scl.repo
+sed -i -e "s/enabled=1/enabled=0/g" /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo
+
+
 - 笔者redis cluster目录结构，以redis1为例：
 
 ```
@@ -406,3 +413,5 @@ time /usr/local/redis/bin/redis-benchmark -h redis3 -p 7002 -a Aniuredis123 -c 2
 echo never > /sys/kernel/mm/transparent_hugepage/enabled
 echo 511 > /proc/sys/net/core/somaxconn
 ```
+
+

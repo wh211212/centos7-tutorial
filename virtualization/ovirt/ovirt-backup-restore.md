@@ -121,4 +121,6 @@ engine-setup # 重新setup
 
 - /home/wh/ovirt下：
 
+```
 engine-backup --scope=all --mode=backup --file=engine-backup-20180413.txt --log=engine-backup-20180413.log
+``
