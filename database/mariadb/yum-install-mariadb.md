@@ -18,4 +18,6 @@ sudo yum install MariaDB-server MariaDB-client
 systemctl start mariadb
 systemctl enable mariadb
 
+- 初始化
 
+mysql_secure_installation 
