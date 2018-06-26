@@ -1,10 +1,10 @@
-# shadowsocks manager配置
+# shadowsocks manager配置 （源码安装）
 
 ## 安装依赖
 
-- Node.js 8.*
+- Node.js 6.*
 
- curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -
+ curl --silent --location https://rpm.nodesource.com/setup_6.x | sudo bash -
 sudo yum install -y nodejs
 
 ## To install the Yarn package manager, run:
