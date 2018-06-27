@@ -24,7 +24,9 @@ Unable to log in because the user account has expired. Contact the system admini
 # 添加主机报错
 
 An error has occurred during installation of Host cloud.aniu.so: Unexpected error during execution: bash: line 1:  7021 Segmentation fault      "${MYTMP}"/ovirt-host-deploy DIALOG/dialect=str:machine DIALOG/customization=bool:True
-
+2018-06-13 13:00:21,237+08 ERROR [org.ovirt.engine.core.uutils.ssh.SSHDialog] (EE-ManagedThreadFactory-engine-Thread-2028725) [1259f623] SSH error running command root@192.168.0.127:'umask 0077; MYTMP="$(TMPDIR="${OVIRT_TMPDIR}" mktemp -d -t ovirt-XXXXXXXXXX)"; trap "chmod -R u+rwX \"${MYTMP}\" > /dev/null 2>&1; rm -fr \"${MYTMP}\" > /dev/null 2>&1" 0; tar --warning=no-timestamp -C "${MYTMP}" -x &&  "${MYTMP}"/ovirt-host-deploy DIALOG/dialect=str:machine DIALOG/customization=bool:True': IOException: Command returned failure code 1 during SSH session 'root@192.168.0.127'
+2018-06-13 13:00:21,238+08 ERROR [org.ovirt.engine.core.bll.hostdeploy.VdsDeployBase] (EE-ManagedThreadFactory-engine-Thread-2028725) [1259f623] Error during host 192.168.0.127 install
+2018-06-13 13:00:21,240+08 ERROR [org.ovirt.engine.core.bll.hostdeploy.InstallVdsInternalCommand] (EE-ManagedThreadFactory-engine-Thread-2028725) [1259f623] Host installation failed for host 'b341d82d-53d1-4f01-b2aa-98c3e682cbc4', 'ovirt5': Command returned failure code 1 during SSH session 'root@192.168.0.127'
 # ovirt engine 上重新reinstall host报错
 
 2018-04-10 11:45:02,822+08 ERROR [org.ovirt.engine.core.bll.hostdeploy.InstallVdsInternalCommand] (EE-ManagedThreadFactory-engine-Thread-2) [44eb8932] Exception: org.ovirt.engine.core.bll.network.NetworkConfigurator$NetworkConfiguratorException: Failed to configure management network
@@ -116,3 +118,4 @@ StorageDomainDoesNotExist: Storage domain does not exist: (u'b5167665-043f-469c-
 ## ovirt vm虚拟机迁移失败
 
 ovirt 主机 ssh端口不统一 不是默认的22导致
+Host pre-ovirt3 moved to Non-Operational state as host does not meet the cluster's minimum CPU level. Missing CPU features :
