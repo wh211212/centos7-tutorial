@@ -225,4 +225,5 @@ Please, find your login credentials stored in the keystonerc_admin in your home 
 
 ## 浏览器访问openstack UI：http://packstack.aniu.so
 
-- 初始密码从keystonerc_admin文件中查看：笔者的 admin 1b02bd75c4084398
+- 初始密码从keystonerc_admin文件中查看：笔者的 admin 1b02bd75c4084398，登录成功显示如下：
+
