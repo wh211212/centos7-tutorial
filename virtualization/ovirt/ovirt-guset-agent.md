@@ -6,8 +6,8 @@
 
 ```
 # 通过终端使用YUM来安装oVirt Guest Tools
-sudo yum install centos-release-ovirt42
-sudo yum install ovirt-guest-agent-common
+sudo yum install centos-release-ovirt42 -y
+sudo yum install ovirt-guest-agent-common -y
 ```
 
 - CentOS6
