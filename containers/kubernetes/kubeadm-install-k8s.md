@@ -54,8 +54,7 @@ sudo cat /sys/class/dmi/id/product_uuid
 > Docker官方安装：https://docs.docker.com/engine/installation/
 
 ```bash
-yum install -y docker
-systemctl enable docker && systemctl start docker
+yum install -y docker && systemctl enable docker && systemctl start docker
 # 不建议使用官网的docker-ce版本、支持性不是很好、使用epel源支持的docker即可
 [root@aniu-k8s ~]# docker version
 Client:

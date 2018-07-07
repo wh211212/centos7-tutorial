@@ -1,4 +1,4 @@
-# centos7 repo源安装ss服务并设置代理
+ # centos7 repo源安装ss服务并设置代理
 
 ## 安装shadowsocks-libev
 
@@ -37,5 +37,4 @@ $ yum install mbedtls-devel
 $ cd /usr/lib64
 $ ls |grep mbed
 $ ln -sf libmbedcrypto.so.1 libmbedcrypto.so.0
-
 ```
