@@ -6,8 +6,8 @@
 
 ```
 # 通过终端使用YUM来安装oVirt Guest Tools
-sudo yum install centos-release-ovirt42 -y
-sudo yum install ovirt-guest-agent-common -y
+sudo yum install centos-release-ovirt42 -y && sudo yum install ovirt-guest-agent-common -y
+systemctl start qemu-guest-agent.service && systemctl enable qemu-guest-agent.service && systemctl start ovirt-guest-agent && systemctl enable ovirt-guest-agent
 ```
 
 - CentOS6
