@@ -12,9 +12,16 @@
 
 # server1，server2 执行
 lvcreate -n glusterfs -L 50G centos
+
+
+lvcreate -n glusterfs1 -L 500G centos
+
 mkfs.xfs -i size=512 /dev/mapper/centos-glusterfs 
 mkdir -p /data/brick1
 echo '/dev/mapper/centos-glusterfs  /data/brick1 xfs defaults 1 2' >> /etc/fstab
+
+echo '/dev/mapper/centos-glusterfs1  /data/brick xfs defaults 1 2' >> /etc/fstab
+
 mount -a && mount
 
 yum install glusterfs-server -y && systemctl start glusterd && systemctl enable glusterd && systemctl status glusterd
@@ -56,6 +63,8 @@ gluster volume create gv2 replica 2 server1:/data/brick1/gv2 server2:/data/brick
 gluster volume start gv0
 gluster volume start gv1
 gluster volume start gv2
+
+gluster volume create gv0 replica 2 ovirt6:/data/brick1/gv0 ovirt7:/data/brick1/gv0
 
 - 确认volume“已启动”
 

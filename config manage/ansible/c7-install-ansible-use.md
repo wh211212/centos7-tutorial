@@ -52,3 +52,7 @@ ansible allapi -m copy -a "src=/tmp/tomcatall dest=/etc/init.d/tomcatall"
 
 
 ansible all -m copy -a "src=/etc/chrony.conf dest=/etc/chrony.conf"
+
+- 同步hosts文件
+
+ansible k8s -m copy -a "src=/etc/hosts dest=/etc/hosts"
