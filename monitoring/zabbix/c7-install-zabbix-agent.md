@@ -8,5 +8,5 @@ yum install zabbix-agent zabbix-get -y
 ansible redis -a "systemctl start zabbix-agent"    
 ansible redis -a "systemctl enable zabbix-agent"       
 
-## 配置zabbix agent主动监控
+
 
