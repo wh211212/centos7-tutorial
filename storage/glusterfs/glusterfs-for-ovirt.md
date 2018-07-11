@@ -56,6 +56,11 @@ gluster volume create gv2 replica 2 ovirt1:/data/brick1/gv2 ovirt2:/data/brick1/
 
 gluster volume create gv0 replica 2 ovirt3:/data/brick1/gv0 ovirt4:/data/brick1/gv0
 
+gluster volume create gv0 replica 2 ovirt9:/data/brick1/gv0 ovirt10:/data/brick1/gv0
+
+
+- force强制创建gvo 
+
 gluster volume create gv0 replica 2 server1:/data/brick1/gv0 server2:/data/brick1/gv0
 gluster volume create gv1 replica 2 server1:/data/brick1/gv1 server2:/data/brick1/gv1
 gluster volume create gv2 replica 2 server1:/data/brick1/gv2 server2:/data/brick1/gv2
