@@ -56,3 +56,10 @@ ansible all -m copy -a "src=/etc/chrony.conf dest=/etc/chrony.conf"
 - 同步hosts文件
 
 ansible k8s -m copy -a "src=/etc/hosts dest=/etc/hosts"
+
+ansible ovirt -a "yum install chrony -y && systemctl restart chronyd && systemctl enable chronyd"
+
+ansible ovirt -m copy -a "src=/etc/chrony.conf dest=/etc/chrony.conf"
+
+ansible ovirt -a "/usr/bin/chronyc sourcestats"
+
