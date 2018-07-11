@@ -62,3 +62,4 @@ ansible ovirt -a "yum install chrony -y && systemctl restart chronyd && systemct
 ansible ovirt -m copy -a "src=/etc/chrony.conf dest=/etc/chrony.conf"
 
 ansible ovirt -a "/usr/bin/chronyc sourcestats"
+
