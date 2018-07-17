@@ -63,3 +63,7 @@ ansible ovirt -m copy -a "src=/etc/chrony.conf dest=/etc/chrony.conf"
 
 ansible ovirt -a "/usr/bin/chronyc sourcestats"
 
+
+ansible wengu -m copy -a "src=/tmp/zabbix_agentd.conf dest=/opt/zabbix/etc/zabbix_agentd.conf"
+
+ansible wengu -a "/etc/init.d/zabbix_agentd restart"
