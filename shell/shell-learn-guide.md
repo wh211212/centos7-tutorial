@@ -32,5 +32,6 @@ sed nq
 awk -F: '{print $5}'
 cut -d: -f5
 
+$$传递进程ID
 
 
