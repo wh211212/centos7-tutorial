@@ -13,9 +13,9 @@ engine-setup
 
 yum -y install qemu-kvm libvirt virt-install bridge-utils
 
-systemctl start libvirtd & systemctl enable libvirtd
+systemctl start libvirtd && systemctl enable libvirtd
 
-yum -y install http://resources.ovirt.org/pub/yum-repo/ovirt-release42.rpm & yum -y install vdsm
+yum -y install http://resources.ovirt.org/pub/yum-repo/ovirt-release42.rpm && yum -y install vdsm
 
 
 ## vm添加硬盘 挂载到data目录

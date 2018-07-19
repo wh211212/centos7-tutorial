@@ -173,7 +173,127 @@ docker.io/centos    latest              49f7960eb7e4        4 weeks ago         
 
 > 容器是镜像的一个运行实例
 
-### 
+### 创建容器
+
+- 新建容器
+
+```
+# 使用docker create新建一个容器
+
+[root@ops-223 ~]# docker create -it centos:latest
+fef2707122cd7d172c9a0e9ed6c36c1c3eeca453a4bd450af7513787b3c8a212
+
+# 新建的容器处于停止状态、使用docker start启动
+docker start fef2707122cd
+```
+
+- 新建并启动容器
+
+```
+# 启动容器方式有两种，一种基于镜像新建一个容器并启动，另外一个是将在终止状态的容器重新启动
+[root@ops-223 ~]# docker run centos /bin/echo 'Hello World.'
+Hello World.
+
+# 启动一个bash终端，允许交互
+[root@ops-223 ~]# docker run -t -i centos:latest /bin/bash       
+[root@1c511dac6b04 /]# pwd
+/
+[root@1c511dac6b04 /]# ls
+bin  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+[root@1c511dac6b04 /]# ps
+  PID TTY          TIME CMD
+    1 ?        00:00:00 bash
+   14 ?        00:00:00 ps
+[root@1c511dac6b04 /]# exit
+exit
+```
+
+- 守护态运行容器
+
+
+```
+[root@ops-223 ~]# docker run -d centos /bin/bash -c "while true;do echo hello world;sleep 1;done"
+23427296e08c0508f6b66f7d89ebb573398a467ce1ee8042910a65e4f49cb048
+[root@ops-223 ~]# docker logs -f 23427296e08c
+hello world
+hello world
+hello world
+...
+```
+
+- 终止容器
+
+```
+# 使用docker stop终止
+[root@ops-223 ~]# docker stop 23427296e08c
+23427296e08c
+```
+
+- 进入容器
+
+```
+# 特殊情况下需要进到容器里面操作。使用docker attach、docker exec 及 nsenter工具
+
+[root@ops-223 ~]# docker exec -ti 93c614b6a0f2 /bin/bash
+[root@93c614b6a0f2 /]# 
+```
+
+- 删除容器
+
+```
+# docker rm --help
+[root@ops-223 ~]# docker rm e411ce4c88ef   # 删除单个容器
+[root@ops-223 ~]# docker rm $(docker ps -a -q)  # 删除所有容器
+```
+
+- 导入导出容器
+
+```
+# docker export container
+[root@ops-223 ~]# docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED              STATUS              PORTS               NAMES
+aabcc5727443        centos              "/bin/bash"         About a minute ago   Up About a minute                       ecstatic_aryabhata
+[root@ops-223 ~]# docker export aab > test_for_run.tar
+
+# 导入
+cat test_for_run.tar | docker import - test/centos:v1
+```
+
+## 仓库
+
+仓库是集中存放镜像的地方，分为私有仓库和公有仓库
+
+- 创建和使用私有仓库
+
+```
+# 安装registry镜像创建私有仓库，默认仓库创建在容器的/tmp/registry下，通过-v参数将镜像文件存放到本地
+[root@ops-223 ~]# docker run -d -p 5000:5000 -v /opt/registry/:/tmp/registry registry 
+982e07e11d040a765f4202987521774e4d64518267b5ea4931d13e9ccd6a6964
+```
+
+- 管理私有仓库
+
+```
+# 查看已用镜像
+[root@ops-223 ~]# docker images          
+REPOSITORY           TAG                 IMAGE ID            CREATED             SIZE
+docker.io/registry   latest              b2b03e9146e1        9 days ago          33.3 MB
+docker.io/nginx      latest              3c5a05123222        9 days ago          109 MB
+shaonbean/nginx      latest              3c5a05123222        9 days ago          109 MB
+centos               latest              49f7960eb7e4        5 weeks ago         200 MB
+docker.io/centos     latest              49f7960eb7e4        5 weeks ago         200 MB
+
+# 使用tag编辑镜像为192.168.0.223:5000/test
+[root@ops-223 ~]# docker tag centos:latest 192.168.0.223:5000/test:c7
+[root@ops-223 ~]# docker images
+REPOSITORY                TAG                 IMAGE ID            CREATED             SIZE
+docker.io/registry        latest              b2b03e9146e1        9 days ago          33.3 MB
+192.168.0.223:5000/test   c7                  49f7960eb7e4        5 weeks ago         200 MB
+docker.io/centos          latest              49f7960eb7e4        5 weeks ago         200 MB
+
+```
+
+## 数据管理
 
 
 
