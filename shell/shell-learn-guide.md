@@ -27,6 +27,14 @@ awk 'FNR <= 3' files
 sed -e nq   files
 sed nq
 
+- 去空格
+
+[root@ops-223 ~]# cat /proc/2063/status | grep VmRSS | sed s/[[:space:]]//g
+VmRSS:9088kB 
+
+[root@ops-223 ~]# sed -r '/VmRSS/s#\s*##g' /proc/2063/status | grep VmRSS
+VmRSS:9088kB
+
 - 以：分割，截取打印显示第五个字段
 
 awk -F: '{print $5}'
