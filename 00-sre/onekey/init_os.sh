@@ -55,7 +55,6 @@ timezone_config()
     fi 
     # config chrony
     yum -y install chrony && systemctl start chronyd.service && systemctl enable chronyd.service
-    sed -i 's/server 0.centos.pool.ntp.org iburst/server time.aniu.so iburst/g' /etc/chrony.conf
     [ $? -eq 0 ] && echo "Setting timezone && Sync network time complete."
 }
 
