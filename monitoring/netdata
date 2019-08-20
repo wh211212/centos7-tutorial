@@ -1,0 +1,92 @@
+# netdata
+
+- netdata简介
+
+构建最佳的实时健康监控和性能故障排除解决方案
+
+netdata官网：https://www.netdata.cloud/about
+netdata文档：https://docs.netdata.cloud/
+
+## netdata安装
+
+- 参考：https://docs.netdata.cloud/packaging/installer/#install-netdata
+
+```
+# 安装依赖包
+yum install autoconf automake curl gcc git libmnl-devel libuuid-devel openssl-devel libuv-devel lz4-devel Judy-devel make nc pkgconfig python zlib-devel
+# 下载源码
+git clone https://github.com/netdata/netdata.git --depth=100
+cd netdata
+# 执行安装，以root权限执行下面命令
+./netdata-installer.sh （需在线，涉及下载github上依赖包）
+```
+
+- 安装成功如下：
+
+```
+etdata by default listens on all IPs on port 19999,
+so you can access it with:
+
+  http://this.machine.ip:19999/
+
+To stop netdata run:
+
+  systemctl stop netdata
+
+To start netdata run:
+
+  systemctl start netdata
+
+Uninstall script copied to: /usr/libexec/netdata/netdata-uninstaller.sh
+
+ --- Install netdata updater tool --- 
+Update script is located at /usr/libexec/netdata/netdata-updater.sh
+
+ --- Check if we must enable/disable the netdata updater --- 
+You chose *NOT* to enable auto-update, removing any links to the updater from cron (it may have happened if you are reinstalling)
+
+Did not find any cron entries to remove
+ --- Wrap up environment set up --- 
+Preparing .environment file
+Setting netdata.tarball.checksum to 'new_installation'
+
+ --- We are done! --- 
+
+  ^
+  |.-.   .-.   .-.   .-.   .-.   .  netdata                          .-.   .-
+  |   '-'   '-'   '-'   '-'   '-'   is installed and running now!  -'   '-'  
+  +----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+--->
+
+  enjoy real-time performance and health monitoring...
+```
+
+## 离线安装
+
+- 参考：https://blog.csdn.net/waplys/article/details/88187438
+
+```
+# 外网安装时自动从git拉取，内网可提前下载文件置于http上，或者直接修改脚本，跳过下载步骤，手动上传并读取本地文件即可。
+curl -sSL --connect-timeout 10 --retry 3 https://github.com/netdata/go.d.plugin/releases/download/v0.8.0/go.d.plugin-v0.8.0.linux-amd64.tar.gz 
+curl -sSL --connect-timeout 10 --retry 3 https://github.com/netdata/go.d.plugin/releases/download/v0.8.0/config.tar.gz
+```
+
+- 配置本下载
+
+```
+# yum install -y httpd 
+# mkdir -p /var/www/html/netdata/go.d.plugin/releases/download/v0.8.0
+# 上传文件<go.d.plugin-v0.8.0.linux-amd64、config.tar.gz>至此目录
+# 重启Http：systemctl restart httpd
+# 测试：wget "http://127.0.0.1:80/netdata/go.d.plugin/releases/download/v0.8.0/go.d.plugin-v0.8.0.linux-amd64"
+```
+
+- 修改脚本
+
+```
+vim netdata-installer.sh
+更改810和812行的github地址为本地：
+github.com换成127.0.0.1
+```
+
+
+

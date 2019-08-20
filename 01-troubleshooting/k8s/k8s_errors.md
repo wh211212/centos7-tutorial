@@ -49,11 +49,18 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 
 - Error from server (AlreadyExists): secrets "kubernetes-dashboard-certs" already exists
 
-kubectl delete -f kubernetes-dashboard.yaml
+kubectl delete -f kubernetes-dashboard.yaml 重新apply
 
 - The Service "kubernetes-dashboard" is invalid: spec.ports[0].nodePort: Forbidden: may not be used when `type` is 'ClusterIP'
 
 kubectl -n kube-system describe $(kubectl -n kube-system get secret -n kube-system -o name | grep namespace) | grep token
+
+更改ClusterIP 为NodePort
+
+
+- had taints that the pod didn't tolerate
+
+kubectl taint nodes --all node-role.kubernetes.io/master-
 
 
 
