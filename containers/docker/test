@@ -1,0 +1,22 @@
+  influxdb:
+    image: influxdb:latest
+    container_name: influxdb
+    ports:
+      - "8083:8083"
+      - "8086:8086"
+      - "8090:8090"
+    env_file:
+      - 'env.influxdb'
+    volumes:
+      - /data/influxdb/data:/var/lib/influxdb
+
+  telegraf:
+    image: telegraf:latest
+    container_name: telegraf
+    links:
+      - influxdb
+    volumes:
+      - /data/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+
+
+docker run -d --name telegraf -v /var/run/docker.sock:/var/run/docker.sock -v /data/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro telegraf -config /etc/telegraf/telegraf.conf
