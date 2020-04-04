@@ -1,0 +1,66 @@
+# 最有用的Linux命令行技巧
+
+## 将输出显示为表格
+
+mount | column –t
+
+使用-s参数指定分隔符，如下
+
+cat /etc/passwd | column -t -s:
+
+## 重复执行命令，直到命令成功运行
+
+使用while true循环,>/dev/null 2>&1 将程序的输出重定向到/dev/null,同时包括标准错误和标准输出。
+
+## 按内存使用情况对进程进行排序
+ps aux | sort -rnk 4 | head -10
+
+## 按CPU使用率对进程进行排序
+ps aux | sort -nk 3 | head -10
+
+## 同时观看多个日志文件
+yum install multitail -y 
+
+## 自动对任何命令回答是或否
+
+yes | yum update
+
+## 记录您的命令行会话
+
+如果要记录在shell屏幕上键入的内容，可以使用script命令将所有键入的内容保存到名为typescript的文件中
+
+## 用制表符替换空格
+cat geeks.txt | tr ':[space]:' '\t' > out.txt
+
+## 将文件转换为大写或小写
+cat myfile | tr a-z A-Z > output.txt
+
+## 强大的Xargs命
+find. -name *.png -type f -print | xargs tar -cvzf images.tar.gz
+cat urls.txt | xargs wget
+ls /etc/*.conf | xargs -i cp {} /home/likegeeks/Desktop/out
+
+## 常用的20个linux命令
+ls
+cp
+cd
+mv
+rm
+mkdir
+rmdir
+chown
+chmod
+locate
+updatedb
+date
+tar
+cat
+less
+grep
+awk
+sed
+passwd
+du
+df
+
+
