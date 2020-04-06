@@ -1,0 +1,320 @@
+# chaosblade
+
+https://chaosblade-io.gitbook.io/chaosblade-help-zh-cn
+
+## chaos命令使用
+
+chaosblade 是一款简单易用、功能强大的混沌实验实施工具
+
+# 查看 blade 命令帮助文档
+blade -h
+
+# 所有的命令都可以添加 -h 来查看此命令如何使用，如创建混沌实验
+blade create -h
+
+# 所有的命令都可以添加 -d 来查看更细的执行信息
+blade create cpu fullload -d
+
+-d, --debug 设置工具为 DEBUG 模式，主要用于调试使用
+-h, --help  查看 blade 命令帮助文档
+
+​blade create     - 创建一个混沌实验
+
+blade_destroy.md  - 销毁一个混沌实验
+
+blade_prepare.md  - 准备混沌实验环境，部分实验执行前必须执行
+
+blade_revoke.md   - 撤销混沌实验环境，与 prepare 操作对应
+
+​blade status   - 查询混沌实验和混沌实验环境状态
+
+blade_query.md    - 查询部分实验所需的系统参数
+
+​blade version  - 打印 blade 工具版本信息
+
+​blade server     - server 模式
+
+## ​blade create
+
+创建混沌实验命令，每个实验对应一个 uid，后续的查询、销毁实验都要用到此 uid，如果遗忘了 uid，可以通过 blade status --type create 命令进行查询。 create 可以简写为 c，即 blade create 可以简写为 blade c
+
+-h, --help   查看 create 命令帮助
+-d, --debug   设置 DEBUG 执行模式
+
+# 查看 create 命令帮助文档
+blade create -h
+
+# 查看如何创建 cpu 混沌实验
+blade create cpu -h
+
+# 查看如何创建 cpu 满载实验
+blade create cpu fullload -h
+
+# 创建 cpu 满载实验
+blade create cpu fullload --cpu-count 1
+
+# 返回结果如下
+{"code":200,"success":true,"result":"6fa04946baf42920"}
+
+# code 的值等于 200 说明执行成功，其中 result 的值就是 uid。使用 top 命令验证实验效果
+%Cpu0  :100.0 us,  0.0 sy,  0.0 ni,  0.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+
+# 销毁上述实验
+blade destroy 6fa04946baf42920
+
+# 返回结果如下
+{"code":200,"success":true,"result":"command: cpu fullload --cpu-count 2 --debug false --help false"}
+
+# 返回值会打印此次实验的命令。再次使用 top 命令验证实验效果
+%Cpu0  :  0.3 us,  0.3 sy,  0.0 ni, 99.3 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+
+### blade create cpu load
+CPU 相关的混沌实验包含 CPU 满载，可以指定核数、具体核满载或者总 CPU 负载百分比。
+旨在 CPU 在特定负载下，验证服务质量、监控告警、流量调度、弹性伸缩等能力。
+load、fullload、fl 命令都可以，即 blade create cpu load、blade create cpu fullload 或 blade create cpu fl
+blade create cpu load [flags]
+
+--timeout string   设定运行时长，单位是秒，通用参数
+--cpu-count string     指定 CPU 满载的个数
+--cpu-list string      指定 CPU 满载的具体核，核索引从 0 开始 (0-3 or 1,3)
+--cpu-percent string   指定 CPU 负载百分比，取值在 0-100
+
+案例
+# 创建 CPU 满载实验
+blade create cpu load
+
+# 返回结果如下
+{"code":200,"success":true,"result":"beeaaf3a7007031d"}
+
+# code 的值等于 200 说明执行成功，其中 result 的值就是 uid。使用 top 命令验证实验效果
+Tasks: 100 total,   2 running,  98 sleeping,   0 stopped,   0 zombie
+%Cpu0  : 21.3 us, 78.7 sy,  0.0 ni,  0.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+%Cpu1  : 20.9 us, 79.1 sy,  0.0 ni,  0.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+%Cpu2  : 20.5 us, 79.5 sy,  0.0 ni,  0.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+%Cpu3  : 20.9 us, 79.1 sy,  0.0 ni,  0.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+
+# 4 核都满载，实验生效，销毁实验
+blade destroy beeaaf3a7007031d
+
+# 返回结果如下
+{"code":200,"success":true,"result":"command: cpu load --help false --debug false"}
+
+# 指定随机两个核满载
+blade create cpu load --cpu-count 2
+
+# 使用 top 命令验证结果如下，实验生效
+Tasks: 100 total,   2 running,  98 sleeping,   0 stopped,   0 zombie
+%Cpu0  : 17.9 us, 75.1 sy,  0.0 ni,  7.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+%Cpu1  :  3.0 us,  6.7 sy,  0.0 ni, 90.3 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+%Cpu2  :  0.7 us,  0.7 sy,  0.0 ni, 98.7 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+%Cpu3  : 19.7 us, 80.3 sy,  0.0 ni,  0.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+
+# 指定索引是 0，3 的核满载，核的索引从 0 开始
+blade create cpu load --cpu-list 0,3
+
+# 使用 top 命令验证结果如下，实验生效
+Tasks: 101 total,   2 running,  99 sleeping,   0 stopped,   0 zombie
+%Cpu0  : 23.5 us, 76.5 sy,  0.0 ni,  0.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+%Cpu1  :  0.0 us,  0.0 sy,  0.0 ni,100.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+%Cpu2  :  0.0 us,  0.0 sy,  0.0 ni,100.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+%Cpu3  : 20.9 us, 79.1 sy,  0.0 ni,  0.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+
+# 指定索引 1 到 3 的核满载
+blade create cpu load --cpu-list 1-3
+
+Tasks: 102 total,   4 running,  98 sleeping,   0 stopped,   0 zombie
+%Cpu0  :  2.4 us,  7.1 sy,  0.0 ni, 90.2 id,  0.0 wa,  0.0 hi,  0.3 si,  0.0 st
+%Cpu1  : 20.0 us, 80.0 sy,  0.0 ni,  0.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+%Cpu2  : 15.7 us, 78.7 sy,  0.0 ni,  5.7 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+%Cpu3  : 19.1 us, 78.9 sy,  0.0 ni,  2.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+
+# 指定百分比负载
+blade create cpu load --cpu-percent 60
+
+# 可以看到 CPU 总的使用率达到 60%， 空闲 40%
+Tasks: 100 total,   1 running,  99 sleeping,   0 stopped,   0 zombie
+%Cpu(s): 15.8 us, 44.1 sy,  0.0 ni, 40.0 id,  0.0 wa,  0.0 hi,  0.1 si,  0.0 st
+
+### blade create disk burn
+
+提升磁盘读写 io 负载，可以指定受影响的目录，也可以通过调整读写的块大小提升 io 负载，默认值是 10，单位是 M，块的数量固定为 100，即在默认情况下，写会占用 1G 的磁盘空间，读会固定占用 600M 的空间，因为读操作会先创建一个 600M 的固定大小文件，预计 3s之内，在创建时写 io 会升高。
+
+验证磁盘 io 高负载下对系统服务的影响，比如监控告警、服务稳定性等。
+
+参数
+--path string      指定提升磁盘 io 的目录，会作用于其所在的磁盘上，默认值是 /
+--read             触发提升磁盘读 IO 负载，会创建 600M 的文件用于读，销毁实验会自动删除
+--size string      块大小, 单位是 M, 默认值是 10，一般不需要修改，除非想更大的提高 io 负载
+--timeout string   设定运行时长，单位是秒，通用参数
+--write            触发提升磁盘写 IO 负载，会根据块大小的值来写入一个文件，比如块大小是 10，则固定的块的数量是 100，则会创建 1000M 的文件，销毁实验会自动删除
+
+案例
+# 在执行实验之前可先观察磁盘 io 读写负载
+iostat -x -t 2
+
+# 上述命令会 2 秒刷新一次读写负载数据，截取结果如下
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+vda               0.00     2.50    0.00    2.00     0.00    18.00    18.00     0.00    1.25    0.00    1.25   1.25   0.25
+
+# 主要观察 rkB/s、wkB/s、%util 数据。执行磁盘读 IO 负载高场景
+blade create disk burn --read --path /home
+
+# 执行 iostat 命令可以看到读负载增大，使用率达 99.9%。执行 blade destroy UID(上述执行实验返回的 result 值)可销毁实验。
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+vda               0.00     3.00  223.00    2.00 108512.00    20.00   964.73    11.45   50.82   51.19   10.00   4.44  99.90
+
+# 销毁上述实验后，执行磁盘写 IO 负载高场景
+blade create disk burn --write --path /home
+
+# 执行 iostat 命令可以看到写负载增大，使用率达 90.10%。
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+vda               0.00    43.00    0.00  260.00     0.00 111572.00   858.25    15.36   59.71    0.00   59.71   3.47  90.10
+
+# 可同时执行读写 IO 负载场景，不指定 path，默认值是 /
+blade create disk burn --read --write
+
+# 通过 iostat 命令可以看到，整个磁盘的 io 使用率达到了 100%
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+vda               0.00    36.00  229.50  252.50 108512.00 107750.00   897.35    30.09   62.70   53.49   71.07   2.07 100.00
+
+### blade create disk fill
+
+模拟磁盘填充，可以指定填充的目录和填充大小。
+
+验证磁盘满下对系统服务的影响，比如监控告警、服务稳定性等。
+--path string      需要填充的目录，默认值是 /
+--size string      需要填充的文件大小，单位是 M，取值是整数，例如 --size 1024 (必要参数)
+--timeout string   设定运行时长，单位是秒，通用参数
+
+案例
+# 执行实验之前，先看下 /home 所在磁盘的大小
+df -h /home
+
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda1        40G  4.0G   34G  11% /
+
+# 执行磁盘填充，填充 40G，即达到磁盘满的效果（可用34G）
+blade create disk fill --path /home --size 40000
+
+# 返回结果
+{"code":200,"success":true,"result":"7a3d53b0e91680d9"}
+
+# 查看磁盘大小
+df -h /home
+
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda1        40G   40G     0 100% /
+
+# 销毁实验
+blade destroy 7a3d53b0e91680d9
+
+{"code":200,"success":true,"result":"command: disk fill --debug false --help false --path /home --size 40000"}
+
+# 查看磁盘大小
+df -h /home
+
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda1        40G  4.0G   34G  11% /
+
+### blade create mem load
+
+内存占用
+
+参数
+--mem-percent string    内存使用率，取值是 0 到 100 的整数
+--timeout string   设定运行时长，单位是秒，通用参数
+
+案例
+# 在执行命令之前，先使用 top 命令查看内存使用信息，如下，总内存大小是 8G，使用了 7.6%
+KiB Mem :  7.6/8010196  
+
+# 执行内存占用 50%
+blade c mem load --mem-percent 50
+
+# 查看内存使用
+KiB Mem : 50.0/8010196 
+
+# 执行内存占用 100%
+KiB Mem : 99.6/8010196
+
+### blade create process kill
+
+此实验会强制杀掉进程。支持命令行或者命令中进程匹配。
+此实验可以验证程序的自愈能力，或者服务进程不存在时，系统的容错能力。
+
+参数
+--process string       进程关键词，会在整个命令行中查找
+--process-cmd string   进程命令，只会在命令中查找
+--timeout string   设定运行时长，单位是秒，通用参数
+
+案例
+# 删除包含 SimpleHTTPServer 关键词的进程
+blade create process kill --process SimpleHTTPServer
+
+# 删除 java 进程
+blade create process kill --process-cmd java
+
+### blade create process stop
+
+此实验会暂停进程。支持命令行或者命令中进程匹配。
+此实验可以验证程序 Hang 时，系统的容错能力。
+
+参数
+--process string       进程关键词，会在整个命令行中查找
+--process-cmd string   进程命令，只会在命令中查找
+--timeout string   设定运行时长，单位是秒，通用参数
+
+案例
+# 暂停包含 SimpleHTTPServer 关键词的进程
+blade create process stop --process SimpleHTTPServer
+
+# 暂停 java 进程
+blade create process stop --process-cmd java
+
+--process 内部使用 ps -ef | grep KEY 查找；--process-cmd 内部使用 pgrep 命令查找。使用 kill -STOP PIDS 暂停进程，使用 kill -CONT PIDS 恢复进程。
+
+
+
+
+### blade create jvm
+
+介绍
+jvm 本身相关场景，以及可以指定类，方法注入延迟、返回值、异常故障场景，也可以编写 groovy 和 java 脚本来实现复杂的场景。目前支持的场景如下
+blade create jvm CodeCacheFilling 填充 jvm code cache
+blade create jvm OutOfMemoryError 内存溢出，支持堆、栈、metaspace 区溢出
+blade create jvm cpufullload java 进程 CPU 使用率满载
+blade create jvm delay 方法延迟
+blade create jvm return 指定返回值
+blade create jvm script 编写 groovy 和 java 实现场景
+blade create jvm throwCustomException 抛自定义异常场景
+
+参数
+--pid string         指定 java 进程号
+--process string     指定 java 进程名，如果同时填写
+--timeout string     set timeout for experiment in seconds
+
+
+--classname string        指定类名，必须是实现类，带全包名，例如 com.xxx.xxx.XController (必填项)
+--methodname string       指定方法名，注意相同方法名的方法都会被注入相同故障 (必填项)
+--after                   方法执行完成返回前注入故障，比如修改复杂的返回对象
+--effect-count string     限制影响数量
+--effect-percent string   限制影响百分比
+
+案例
+# 先执行 prepare 操作
+blade prepare jvm --process tomcat
+{"code":200,"success":true,"result":"af9ec083eaf32e26"}
+
+# 执行进程内 CPU 满载
+blade create jvm cpufullload --process tomcat
+{"code":200,"success":true,"result":"2a97b8c2fe9d7c01"}
+
+# 验证结果
+![-w461](media/15756201454147/15758721082138.jpg)
+
+# 停止实验
+blade destroy 2a97b8c2fe9d7c01
+
+# 卸载 agent
+blade revoke af9ec083eaf32e26
